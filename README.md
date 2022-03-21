@@ -1,2 +1,3 @@
 # Poker
-it's poker
+
+A project to simulate 5 card draw poker against one opponent
