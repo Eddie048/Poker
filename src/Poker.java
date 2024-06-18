@@ -21,9 +21,19 @@ public class Poker {
         boolean keepGoing = true;
 
         while (keepGoing) {
-            // Player choices
+            // Player choices with ASCII art from https://www.asciiart.eu/
             System.out.println("""
-                    Welcome to 5 card draw poker!
+                    Welcome to 5 card draw poker!                    
+                              _____
+                             |A .  | _____
+                             | / \\ ||A ^  | _____
+                             |(_._)|| / \\ ||A _  | _____
+                             |  |  || \\ / || ( ) ||A_ _ |
+                             |____V||  .  ||(_'_)||( v )|
+                                    |____V||  |  || \\ / |
+                                           |____V||  .  |
+                                                  |____V|
+                                                  
                     1: Play the game
                     2: Read the rules
                     3: Exit""");
