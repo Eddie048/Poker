@@ -1,3 +1,6 @@
+/**
+ * Represents one card in a deck with a given suit and rank. The value is the number representing the rank.
+ */
 public class Card {
 
     private final String suit;
