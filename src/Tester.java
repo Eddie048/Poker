@@ -122,8 +122,8 @@ public class Tester {
 
         Deck.fixCards(player1Hand);
 
-        System.out.println("Did it work? " + myDeck.returnToDeck(player1Hand));
-        System.out.println("Did it work? " + myDeck.returnToDeck(player2Hand));
+        // System.out.println("Did it work? " + myDeck.returnToDeck(player1Hand));
+        // System.out.println("Did it work? " + myDeck.returnToDeck(player2Hand));
         System.out.println("\n**********Deck after all cards returned ***********//*");
 
         System.out.println(myDeck.checkDeck());
