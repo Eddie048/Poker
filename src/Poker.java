@@ -1,33 +1,27 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Poker {
 
-
     public static void main(String[] args) {
-
 
         Scanner reader = new Scanner(System.in);
 
         boolean keepGoing = true;
 
         while (keepGoing) {
-            System.out.println("Welcome to 5 card draw poker!\n" +
-                    "1: Play the game\n" +
-                    "2: Read the rules\n" +
-                    "3: Exit");
+            System.out.println("""
+                    Welcome to 5 card draw poker!
+                    1: Play the game
+                    2: Read the rules
+                    3: Exit""");
 
             int choice = reader.nextInt();
 
             switch (choice) {
-                case 1:
-                    keepGoing = playGame();
-                    break;
-                case 2:
-                    System.out.println("Rules");//TODO: write the rules
-                    break;
-                case 3:
-                    keepGoing = false;
-                    break;
+                case 1 -> keepGoing = playGame();
+                case 2 -> System.out.println("Rules");//TODO: write the rules
+                case 3 -> keepGoing = false;
             }
         }
 
@@ -165,16 +159,14 @@ public class Poker {
                         }
 
                         switch (choice) {
-                            case "1":
+                            case "1" -> {
                                 System.out.println("You " + word.toLowerCase() + "ed for " + computerBet);
                                 user.deduct(computerBet - userBet);
                                 userBet = computerBet;
-                                break;
-                            case "2":
+                            }
+                            case "2" -> {
                                 System.out.println("How much would you like to raise to?");
-
                                 int bet = reader.nextInt();
-
                                 while (bet < userBet || bet > (user.getMoney() + userBet) || bet < computerBet) {
                                     if (bet < computerBet) System.out.println("You must bet more than the computer!");
                                     else if (bet < userBet)
@@ -184,23 +176,20 @@ public class Poker {
 
                                     bet = reader.nextInt();
                                 }
-
                                 System.out.println("You have raised to " + bet + ".");
                                 user.deduct(bet - userBet);
                                 userBet = bet;
-
-                                break;
-                            case "3":
+                            }
+                            case "3" -> {
                                 System.out.println("You went all in for " + (user.getMoney() + userBet) + ".");
                                 userBet += user.getMoney();
                                 user.deduct(user.getMoney());
-
-                                break;
-                            case "4":
+                            }
+                            case "4" -> {
                                 System.out.println("You folded!");
                                 kitty.update(userBet);
                                 userBet = -1;
-                                break;
+                            }
                         }
 
                     }
@@ -285,7 +274,7 @@ public class Poker {
 
                 int[] discard = new int[total];
 
-                for(int i = 0; i < discard.length; i++) discard[i] = -2;
+                Arrays.fill(discard, -2);
 
                 for (int i = 0; i < discard.length; i++) {
 
@@ -303,19 +292,19 @@ public class Poker {
                     if(discard[i] == -2)break;
                 }
 
-                for(int i = 0; i < discard.length; i++){
-                    if(discard[i] == -2) break;
+                for (int j : discard) {
+                    if (j == -2) break;
 
-                    discardPile[dIndex] = user.discard(discard[i]);
-                    dIndex ++;
+                    discardPile[dIndex] = user.discard(j);
+                    dIndex++;
                 }
 
                 discard = computer.playHand();
 
-                for(int i = 0; i < discard.length; i++){
+                for (int j : discard) {
 
-                    discardPile[dIndex] = computer.discard(discard[i]);
-                    dIndex ++;
+                    discardPile[dIndex] = computer.discard(j);
+                    dIndex++;
                 }
 
                 user.fixCards();
@@ -425,18 +414,17 @@ public class Poker {
                             }
 
                             switch (choice) {
-                                case "1":
+                                case "1" -> {
                                     System.out.println("You " + word.toLowerCase() + "ed for " + computerBet);
                                     user.deduct(computerBet - userBet);
                                     userBet = computerBet;
-                                    break;
-                                case "2":
+                                }
+                                case "2" -> {
                                     System.out.println("How much would you like to raise to?");
-
                                     int bet = reader.nextInt();
-
                                     while (bet < userBet || bet > (user.getMoney() + userBet) || bet < computerBet) {
-                                        if (bet < computerBet) System.out.println("You must bet more than the computer!");
+                                        if (bet < computerBet)
+                                            System.out.println("You must bet more than the computer!");
                                         else if (bet < userBet)
                                             System.out.println("You must bet more than you already bet!");
                                         else if (bet > (user.getMoney() + userBet))
@@ -444,23 +432,20 @@ public class Poker {
 
                                         bet = reader.nextInt();
                                     }
-
                                     System.out.println("You have raised to " + bet + ".");
                                     user.deduct(bet - userBet);
                                     userBet = bet;
-
-                                    break;
-                                case "3":
+                                }
+                                case "3" -> {
                                     System.out.println("You went all in for " + (user.getMoney() + userBet) + ".");
                                     userBet += user.getMoney();
                                     user.deduct(user.getMoney());
-
-                                    break;
-                                case "4":
+                                }
+                                case "4" -> {
                                     System.out.println("You folded!");
                                     kitty.update(userBet);
                                     userBet = -1;
-                                    break;
+                                }
                             }
 
                         }
@@ -594,28 +579,18 @@ public class Poker {
 
         //returns the string form of a given hand type
 
-        switch (Rules.scoreCards(hand)) {
-            case 10:
-                return "royal flush";
-            case 9:
-                return "straight flush";
-            case 8:
-                return "four of a kind";
-            case 7:
-                return "full house";
-            case 6:
-                return "flush";
-            case 5:
-                return "straight";
-            case 4:
-                return "three of a kind";
-            case 3:
-                return "two pair";
-            case 2:
-                return "pair";
-            default:
-                return "high card";
-        }
+        return switch (Rules.scoreCards(hand)) {
+            case 10 -> "royal flush";
+            case 9 -> "straight flush";
+            case 8 -> "four of a kind";
+            case 7 -> "full house";
+            case 6 -> "flush";
+            case 5 -> "straight";
+            case 4 -> "three of a kind";
+            case 3 -> "two pair";
+            case 2 -> "pair";
+            default -> "high card";
+        };
     }
 
     public static boolean hasRepeat(int[] arr) {

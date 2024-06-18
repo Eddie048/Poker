@@ -25,7 +25,7 @@ public class Strategy {
                         break;
                     case 6:
                     case 5:
-                        bet = (int)Math.max(money/2, currentBet*1.5);
+                        bet = (int)Math.max(money/2.0, currentBet*1.5);
                         break;
                     case 4:
                     case 3:
@@ -57,6 +57,7 @@ public class Strategy {
                         if(currentBet < money/6) bet = money/6;
                         else if(currentBet < money/2) bet = currentBet;
                         else bet = -1;
+                        break;
                     default:
                         if(currentBet < money/10) bet = money/6;
                         else if(currentBet < money/6) bet = currentBet;
@@ -72,8 +73,7 @@ public class Strategy {
 
         //make sure the bet is valid
         if(bet < currentBet) return -1;
-        else if(bet >= money) return money;
-        else return bet;
+        else return Math.min(bet, money);
     }
 
     public int[] playHand(Card[] hand){
@@ -104,16 +104,12 @@ public class Strategy {
                         break;
                     }
                 }
-                switch (indexOfPair) {
-                    case 0:
-                        return new int[]{2, 3};
-                    case 1:
-                        return new int[]{0, 3};
-                    case 2:
-                        return new int[]{0, 1};
-                    default:
-                        return new int[]{0, 1, 2};
-                }
+                return switch (indexOfPair) {
+                    case 0 -> new int[]{2, 3};
+                    case 1 -> new int[]{0, 3};
+                    case 2 -> new int[]{0, 1};
+                    default -> new int[]{0, 1, 2};
+                };
             default:
                 return new int[]{0, 1, 2};
         }

@@ -1,5 +1,3 @@
-import java.lang.reflect.Array;
-
 /**
  * Tester class for poker game
  */
@@ -34,7 +32,7 @@ public class Tester {
 
         System.out.println("\n" +  dealt[0] + "\n" + dealt[1] + "\n" + dealt[2] + "\n" + dealt[3] + "\n" + dealt[4]);
 
-        deck.fixCards(dealt);
+        Deck.fixCards(dealt);
 
         System.out.println(" \n" + dealt[0] + "\n" + dealt[1] + "\n" + dealt[2] + "\n" + dealt[3] + "\n" + dealt[4]);
     }
@@ -91,21 +89,21 @@ public class Tester {
         System.out.println();
 
         System.out.println("**********Player 1 Hand:*********");
-        for(int i=0; i<player1Hand.length; i++) {
-            if(player1Hand[i]!=null) //Ensure we do not try to access null reference
-                System.out.print(" " + player1Hand[i]);
+        for (Card item : player1Hand) {
+            if (item != null) //Ensure we do not try to access null reference
+                System.out.print(" " + item);
         }
         Deck.sortCards(player1Hand);
         System.out.println("\nSorted");
-        for(int i=0; i<player1Hand.length; i++) {
-            if(player1Hand[i]!=null) //Ensure we do not try to access null reference
-                System.out.print(" " + player1Hand[i]);
+        for (Card value : player1Hand) {
+            if (value != null) //Ensure we do not try to access null reference
+                System.out.print(" " + value);
         }
 
         System.out.println("\n**********Player 2 Hand:*********");
-        for(int i=0; i<player2Hand.length; i++) {
-            if(player2Hand[i]!=null)
-                System.out.print(" " + player2Hand[i]);
+        for (Card card : player2Hand) {
+            if (card != null)
+                System.out.print(" " + card);
         }
 
         //Return player 1's middle card:
@@ -114,9 +112,9 @@ public class Tester {
 
         System.out.println("\n***********player 1 hand after returning card**************:");
 
-        for(int i=0; i<player1Hand.length; i++) {
-            if(player1Hand[i]!=null) //needed so we don't access null Card
-                System.out.print(" " + player1Hand[i]);
+        for (Card card : player1Hand) {
+            if (card != null) //needed so we don't access null Card
+                System.out.print(" " + card);
         }
         System.out.println("\n**********Deck after having one card returned ***********//*");
         System.out.println("\n" + myDeck);
@@ -156,11 +154,11 @@ public class Tester {
 
 
     public static String cardString(Card[] cards) {
-        String out = "";
+        StringBuilder out = new StringBuilder();
         for(Card c : cards){
-            out += c.toString() + ", ";
+            out.append(c.toString()).append(", ");
         }
-        return out;
+        return out.toString();
     }
 
 
@@ -195,22 +193,20 @@ public class Tester {
         Card[] pair3 = new Card[]{new Card("Spades", "Queen", 12), new Card("Hearts", "Queen", 12), new Card("Spades", "King", 13), new Card("Clubs", "6", 6), new Card("Diamonds", "2", 2)};
         Deck.sortCards(pair3);
 
-        Card[] test = high3;
-
-        for(Card c: test){
+        for(Card c: high3){
             System.out.println(c);
         }
         System.out.println("\n");
 
-        int[] discard = s.playHand(test);
+        int[] discard = s.playHand(high3);
 
         //Deck.sortCards(test);
 
         for(int x : discard){
-            test[x] = null;
+            high3[x] = null;
         }
 
-        for(Card c: test){
+        for(Card c: high3){
             System.out.println(c);
         }
     }

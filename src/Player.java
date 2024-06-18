@@ -2,7 +2,7 @@ public class Player {
     private Card[] hand;
     private final int MAX_SIZE;
     private int currentSize;
-    private String name;
+    private final String name;
 
     public Player(String n, int max){
         MAX_SIZE = max;
@@ -43,13 +43,13 @@ public class Player {
     }
 
     public String showHand(){
-        String out = "";
+        StringBuilder out = new StringBuilder();
 
         for(int i = 0; i < hand.length; i++){
-            if(hand[i] != null) out += (i + 1) +  ": " + hand[i] + "\n";
+            if(hand[i] != null) out.append(i + 1).append(": ").append(hand[i]).append("\n");
         }
 
-        return out;
+        return out.toString();
     }
 
     public boolean hasRoom(){

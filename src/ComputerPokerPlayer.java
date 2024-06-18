@@ -1,6 +1,6 @@
 public class ComputerPokerPlayer extends PokerPlayer{
 
-    private Strategy strategy;
+    private final Strategy strategy;
 
     public ComputerPokerPlayer(String n, int max, int m){
         super(n, max, m);

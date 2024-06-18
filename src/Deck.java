@@ -2,7 +2,7 @@
  * Represents a deck of cards and the logic surrounding the deck
  */
 public class Deck {
-    private Card[] cards;
+    private final Card[] cards;
     private static final int MAX_SIZE = 52;
     private int currentSize;
 
@@ -186,20 +186,18 @@ public class Deck {
                 " Diamonds: " + diamondsCnt + " Hearts: " + heartsCnt);
         System.out.println("Total: " + totalValue);
 
-        if(clubsCnt==13 && spadesCnt == 13 && diamondsCnt==13 && heartsCnt==13 && totalValue==416)
-            return true;
-        return false;
+        return clubsCnt == 13 && spadesCnt == 13 && diamondsCnt == 13 && heartsCnt == 13 && totalValue == 416;
     }
 
 
     public String toString(){
 
-        String out = "Size: " + currentSize + "\n";
+        StringBuilder out = new StringBuilder("Size: " + currentSize + "\n");
         for(Card c : cards){
             if(c != null){
-                out = out + c + "\n";
+                out.append(c).append("\n");
             }
         }
-        return out;
+        return out.toString();
     }
 }

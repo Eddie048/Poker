@@ -30,11 +30,11 @@ public class Rules {
                     if(hand[i].getValue() == hand[k].getValue()) count ++;
                 }
 
-                switch (count){
-                    case 2: doubles ++; break;
-                    case 3: hasTriple = true; break;
-                    case 4: hasFour = true; break;
-                    case 5: System.out.println("Uh oh"); break;
+                switch (count) {
+                    case 2 -> doubles++;
+                    case 3 -> hasTriple = true;
+                    case 4 -> hasFour = true;
+                    case 5 -> System.out.println("Uh oh");
                 }
             }
         }
