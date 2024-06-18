@@ -72,43 +72,52 @@ public class Rules {
         Deck.sortCards(hand1);
         Deck.sortCards(hand2);
 
+        // Tied initial evaluation, do further analysis
         switch (scoreCards(hand1)){
-            case 10: return 0;
-
+            case 10:
+                // Both players have a royal flush, tie game
+                return 0;
             case 3:
-                //checks the larger double in the two pair
+                // Two pair, check the larger pair to see the winner
                 if(getBigDoubleVal(hand1) > getBigDoubleVal(hand1)) return -1;
                 else if(getBigDoubleVal(hand1) < getBigDoubleVal(hand2)) return 1;
+                // If they are the same, fall through
 
             case 2:
-                //checks the smaller double in the two pair, or the only double in the one pair
+                // Check the smaller double in a two pair, or the only double in a one pair
                 if(getSmallDoubleVal(hand1) > getSmallDoubleVal(hand1)) return -1;
                 else if(getSmallDoubleVal(hand1) < getSmallDoubleVal(hand2)) return 1;
+                // If they are the same, fall through
 
             case 9:
             case 6:
             case 5:
             case 1:
-                //checks the cards from highest to lowest to return the winner
+                // Logic for tied pair, tied two pair, straight flush, flush, straight, and nothing
+                // It is sufficient to match each card against each other and first higher card wins
                 for(int i = hand1.length - 1; i >= 0; i--){
                     if(hand1[i].getValue() > hand2[i].getValue()) return -1;
                     else if(hand1[i].getValue() < hand2[i].getValue()) return 1;
                 }
+
+                // Entire hand is tied (wow!) so the hand is tied
                 return 0;
 
             case 8:
             case 7:
             case 4:
-                //because the 3rd card in a hand will always be in a triple of 4 of a kind
+                // Logic for 4 of a kind, full house, and three of a kind
+                // Checking only the third card is sufficient, as in each case it will be part of the 3 or 4 matching
                 if(hand1[2].getValue() > hand2[2].getValue()) return -1;
                 else if(hand1[2].getValue() < hand2[2].getValue()) return 1;
                 else {
+                    // There are tied 3 or 4 of a kind, which is impossible
                     System.out.println("There are too many cards ew");
                     return 0;
                 }
 
             default:
-                //if the hand is not from 1 - 10
+                // Something is broken
                 System.out.println("Oh no what is this hand even");
                 return 0;
         }
