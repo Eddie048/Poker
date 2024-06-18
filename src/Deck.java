@@ -1,46 +1,67 @@
+/**
+ * Represents a deck of cards and the logic surrounding the deck
+ */
 public class Deck {
     private Card[] cards;
     private static final int MAX_SIZE = 52;
-    private int size;
+    private int currentSize;
 
 
     public Deck(){
+        // Possible suits and ranks
         String[] suits = {"Hearts", "Spades", "Clubs", "Diamonds"};
-        String[] ranks = {"Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"};
+        String[] ranks = {"Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten",
+                "Jack", "Queen", "King"};
         int[] values = {14, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
 
+        // Create deck
         cards = new Card[MAX_SIZE];
 
-        for(int i = 0; i < 4; i++){
+        // Create cards in deck
+        for(int i = 0; i < 4; i++) {
             for(int j = 0; j < 13; j++) {
                 cards[j + 13*i] = new Card(suits[i], ranks[j], values[j]);
             }
         }
-        size = MAX_SIZE;
+        currentSize = MAX_SIZE;
     }
 
 
-    public Card deal(){
-        size --;
-        Card temp = cards[size];
-        cards[size] = null;
+    /**
+     * Deal one card off the top of the deck
+     * @return the dealt card
+     */
+    public Card deal() {
+        currentSize--;
+        Card temp = cards[currentSize];
+        cards[currentSize] = null;
         return temp;
     }
 
 
-    public boolean returnToDeck(Card c){
-        if(size < MAX_SIZE){
-            cards[size] = c;
-            size ++;
+    /**
+     * Return a card to the top of the deck
+     * @param c the card to return
+     * @return true if success, false otherwise
+     */
+    public boolean returnToDeck(Card c) {
+        if(currentSize < MAX_SIZE) {
+            cards[currentSize] = c;
+            currentSize++;
             return true;
-        }else return false;
+        } else return false;
     }
 
 
-    public boolean returnToDeck(Card[] returned){
+    /**
+     * Return an array of cards to the deck
+     * @param returned the cards to be returned
+     * @return true if success, false otherwise
+     */
+    public boolean returnToDeck(Card[] returned) {
 
-        for(Card c : returned){
-            if(c != null){
+        for(Card c : returned) {
+            if(c != null) {
                 if(!returnToDeck(c)) return false;
             }
         }
@@ -48,13 +69,14 @@ public class Deck {
     }
 
 
-    public void shuffle(){
+    /**
+     * Shuffle the deck
+     */
+    public void shuffle() {
 
-        //randomizes the order of the deck
+        for(int i = 0; i < currentSize; i++) {
 
-        for(int i = 0; i < size; i++){
-
-            int rPosition = (int)(Math.random()*size);
+            int rPosition = (int)(Math.random()* currentSize);
 
             Card temp = cards[i];
             cards[i] = cards[rPosition];
@@ -62,13 +84,16 @@ public class Deck {
         }
     }
 
-    public static void sortCards(Card[] hand){
 
-        //sorts an array of cards from lowest to highest value (doesn't pay attention to suits)
+    /**
+     * Sort a given array of cards from lowest to highest value, suit is ignored
+     * @param hand the cards to be sorted
+     */
+    public static void sortCards(Card[] hand) {
 
-        for(int i = 0; i < hand.length; i++){
-            for(int k = i; k < hand.length; k++){
-                if(hand[i].getValue() > hand[k].getValue()){
+        for(int i = 0; i < hand.length; i++) {
+            for(int k = i; k < hand.length; k++) {
+                if(hand[i].getValue() > hand[k].getValue()) {
                     Card temp = hand[i];
                     hand[i] = hand[k];
                     hand[k] = temp;
@@ -77,10 +102,12 @@ public class Deck {
         }
     }
 
-    public static void fixCards(Card[] hand){
 
-
-        //puts all null objects at the end of an array of cards
+    /**
+     * Puts all null objects in a card array at the end
+     * @param hand the card array to be fixed
+     */
+    public static void fixCards(Card[] hand) {
 
         for(int i = 0; i < hand.length; i++){
             if(hand[i] == null){
@@ -95,9 +122,12 @@ public class Deck {
         }
     }
 
-    public boolean checkDeck() {
 
-        //for testing purposes
+    /**
+     * For testing purposes, tests the deck
+     * @return true if success, false otherwise
+     */
+    public boolean checkDeck() {
 
         int spadesCnt=0, diamondsCnt=0, clubsCnt=0, heartsCnt=0;
         int totalValue=0;
@@ -106,65 +136,65 @@ public class Deck {
         Card[] hearts = new Card[20];
         Card[] clubs = new Card[20];
         System.out.println("*******Checking Deck **********/");
-        for(int i=0; i<MAX_SIZE; i++)
-        {
-            if(cards[i]!=null && cards[i].getSuit().equals("Clubs"))
-            {
+        for(int i=0; i<MAX_SIZE; i++) {
+            if(cards[i]!=null && cards[i].getSuit().equals("Clubs")) {
 
                 clubs[clubsCnt]=cards[i];
                 clubsCnt++;
             }
-            else if(cards[i]!=null && cards[i].getSuit().equals("Diamonds"))
-            {
+            else if(cards[i]!=null && cards[i].getSuit().equals("Diamonds")) {
                 diamonds[diamondsCnt]=cards[i];
                 diamondsCnt++;
             }
 
-            else if(cards[i]!=null && cards[i].getSuit().equals("Hearts"))
-            {
+            else if(cards[i]!=null && cards[i].getSuit().equals("Hearts")) {
                 hearts[heartsCnt]=cards[i];
                 heartsCnt++;
             }
 
-            else if(cards[i]!=null && cards[i].getSuit().equals("Spades"))
-            {
+            else if(cards[i]!=null && cards[i].getSuit().equals("Spades")) {
                 spades[spadesCnt]=cards[i];
                 spadesCnt++;
             }
-            if(cards[i]!=null )
+            if(cards[i]!=null)
                 totalValue+=cards[i].getValue();
 
         }
         for(int i=0; i<clubsCnt; i++)
             if(clubs[i]!=null)
                 System.out.println(clubs[i]);
+
         System.out.println();
+
         for(int i=0; i<diamondsCnt; i++)
             if(diamonds[i]!=null)
                 System.out.println(diamonds[i]);
+
         System.out.println();
+
         for(int i=0; i<spadesCnt; i++)
             if(spades[i]!=null)
                 System.out.println(spades[i]);
+
         System.out.println();
+
         for(int i=0; i<heartsCnt; i++)
             if(hearts[i]!=null)
                 System.out.println(hearts[i]);
 
-
-
-        System.out.println("Clubs: " + clubsCnt + " Spades: " + spadesCnt + " Diamonds: " + diamondsCnt + " Hearts: " + heartsCnt);
+        System.out.println("Clubs: " + clubsCnt + " Spades: " + spadesCnt +
+                " Diamonds: " + diamondsCnt + " Hearts: " + heartsCnt);
         System.out.println("Total: " + totalValue);
 
         if(clubsCnt==13 && spadesCnt == 13 && diamondsCnt==13 && heartsCnt==13 && totalValue==416)
             return true;
         return false;
-
     }
+
 
     public String toString(){
 
-        String out = "Size: " + size + "\n";
+        String out = "Size: " + currentSize + "\n";
         for(Card c : cards){
             if(c != null){
                 out = out + c + "\n";
