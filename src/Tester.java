@@ -1,6 +1,11 @@
 import java.lang.reflect.Array;
 
+/**
+ * Tester class for poker game
+ */
 public class Tester {
+
+
     public static void main2(String[] args) {
         Deck deck = new Deck();
         deck.shuffle();
@@ -9,7 +14,7 @@ public class Tester {
         Player p2 = new Player("Bobo", 5);
 
 
-        for(int i = 0; i  < 5; i ++){
+        for(int i = 0; i  < 5; i ++) {
             p1.setCard(deck.deal());
             p2.setCard(deck.deal());
         }
@@ -18,7 +23,8 @@ public class Tester {
         System.out.println(p2.showHand());
     }
 
-    public static void mainfake2(String[] args){
+
+    public static void mainfake2(String[] args) {
         Deck deck = new Deck();
         System.out.println(deck);
         deck.shuffle();
@@ -31,8 +37,6 @@ public class Tester {
         deck.fixCards(dealt);
 
         System.out.println(" \n" + dealt[0] + "\n" + dealt[1] + "\n" + dealt[2] + "\n" + dealt[3] + "\n" + dealt[4]);
-
-
     }
     /*
      * Deck deck = new Deck();
@@ -48,9 +52,10 @@ public class Tester {
         System.out.println(deck);
 
      */
+
+
     public static void main3(String[] args)
     {
-
         Card[] player1Hand = new Card[7];
         Card[] player2Hand = new Card[7];
 
@@ -86,22 +91,19 @@ public class Tester {
         System.out.println();
 
         System.out.println("**********Player 1 Hand:*********");
-        for(int i=0; i<player1Hand.length; i++)
-        {
+        for(int i=0; i<player1Hand.length; i++) {
             if(player1Hand[i]!=null) //Ensure we do not try to access null reference
                 System.out.print(" " + player1Hand[i]);
         }
         Deck.sortCards(player1Hand);
         System.out.println("\nSorted");
-        for(int i=0; i<player1Hand.length; i++)
-        {
+        for(int i=0; i<player1Hand.length; i++) {
             if(player1Hand[i]!=null) //Ensure we do not try to access null reference
                 System.out.print(" " + player1Hand[i]);
         }
 
         System.out.println("\n**********Player 2 Hand:*********");
-        for(int i=0; i<player2Hand.length; i++)
-        {
+        for(int i=0; i<player2Hand.length; i++) {
             if(player2Hand[i]!=null)
                 System.out.print(" " + player2Hand[i]);
         }
@@ -112,8 +114,7 @@ public class Tester {
 
         System.out.println("\n***********player 1 hand after returning card**************:");
 
-        for(int i=0; i<player1Hand.length; i++)
-        {
+        for(int i=0; i<player1Hand.length; i++) {
             if(player1Hand[i]!=null) //needed so we don't access null Card
                 System.out.print(" " + player1Hand[i]);
         }
@@ -131,13 +132,15 @@ public class Tester {
         System.out.println(myDeck);
 
     }
-    public static void mainnotreal(String[] args){
+
+
+    public static void mainnotreal(String[] args) {
         Deck deck = new Deck();
         deck.shuffle();
         Card[] hand1 = new Card[5];
         Card[] hand2 = new Card[5];
 
-        for(int i = 0; i < 5; i++){
+        for(int i = 0; i < 5; i++) {
             hand1[i] = deck.deal();
             hand2[i] = deck.deal();
         }
@@ -151,13 +154,15 @@ public class Tester {
         System.out.println(Rules.breakTie(hand1, hand2));
     }
 
-    public static String cardString(Card[] cards){
+
+    public static String cardString(Card[] cards) {
         String out = "";
         for(Card c : cards){
             out += c.toString() + ", ";
         }
         return out;
     }
+
 
     public static void main(String[] args){
 
@@ -190,8 +195,6 @@ public class Tester {
         Card[] pair3 = new Card[]{new Card("Spades", "Queen", 12), new Card("Hearts", "Queen", 12), new Card("Spades", "King", 13), new Card("Clubs", "6", 6), new Card("Diamonds", "2", 2)};
         Deck.sortCards(pair3);
 
-
-
         Card[] test = high3;
 
         for(Card c: test){
@@ -207,15 +210,10 @@ public class Tester {
             test[x] = null;
         }
 
-
-
         for(Card c: test){
             System.out.println(c);
         }
-
     }
-
-
 }
 
 
