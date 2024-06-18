@@ -1,4 +1,4 @@
-//TODO: test the entire fucking program ahahahahdjsfhaskdjhf
+// This file is the beginning of implementing a multi player game
 /*//remove this
 import java.util.Arrays;
 import java.util.Scanner;
