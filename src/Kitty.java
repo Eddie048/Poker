@@ -5,8 +5,8 @@ public class Kitty {
     private int total;
 
 
-    public void update(int m) {
-        total += m;
+    public void update(int amount) {
+        total += amount;
     }
 
 
