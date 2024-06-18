@@ -1,3 +1,5 @@
+import java.util.List;
+
 /**
  * Represents a deck of cards and the logic surrounding the deck
  */
@@ -56,16 +58,14 @@ public class Deck {
     /**
      * Return an array of cards to the deck
      * @param returned the cards to be returned
-     * @return true if success, false otherwise
      */
-    public boolean returnToDeck(Card[] returned) {
+    public void returnToDeck(List<Card> returned) {
 
         for(Card c : returned) {
             if(c != null) {
-                if(!returnToDeck(c)) return false;
+                if(!returnToDeck(c)) return;
             }
         }
-        return true;
     }
 
 
