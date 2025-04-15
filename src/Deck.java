@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Represents a deck of cards and the logic surrounding the deck
@@ -11,9 +13,9 @@ public class Deck {
     public Deck(){
         // Possible suits and ranks
         String[] suits = {"Hearts", "Spades", "Clubs", "Diamonds"};
-        String[] ranks = {"Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten",
-                "Jack", "Queen", "King"};
-        int[] values = {14, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
+        String[] ranks = {"Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten",
+                "Jack", "Queen", "King", "Ace"};
+        int[] values = {2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
 
         // Create deck
         cards = new ArrayList<>();
@@ -45,21 +47,24 @@ public class Deck {
         cards.addAll(returned);
     }
 
+    public void removeAll(List<Card> toRemove) {
+        cards.removeAll(toRemove);
+    }
+
 
     /**
      * Shuffle the deck
      */
     public void shuffle() {
 
-        for(int i = 0; i < cards.size(); i++) {
+        Random random = new Random();
+        for(int i = cards.size() - 1; i > 0; i--) {
 
             // Choose location to swap
-            int rPosition = (int) (Math.random() * cards.size());
+            int rPosition = random.nextInt(i + 1);
 
             // Swap cards
-            Card temp = cards.get(i);
-            cards.set(i, cards.get(rPosition));
-            cards.set(rPosition, temp);
+            Collections.swap(cards, i, rPosition);
         }
     }
 
@@ -76,6 +81,21 @@ public class Deck {
                     Card temp = hand[i];
                     hand[i] = hand[k];
                     hand[k] = temp;
+                }
+            }
+        }
+    }
+
+    /**
+     * Sort a given array of cards from lowest to highest value, suit is ignored
+     * @param hand the cards to be sorted
+     */
+    public static void sortCards(List<Card> hand) {
+
+        for(int i = 0; i < hand.size(); i++) {
+            for(int k = i; k < hand.size(); k++) {
+                if(hand.get(i).getValue() > hand.get(k).getValue()) {
+                    Collections.swap(hand, i, k);
                 }
             }
         }
