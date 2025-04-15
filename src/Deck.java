@@ -13,8 +13,6 @@ public class Deck {
     public Deck(){
         // Possible suits and ranks
         String[] suits = {"Hearts", "Spades", "Clubs", "Diamonds"};
-        String[] ranks = {"Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten",
-                "Jack", "Queen", "King", "Ace"};
         int[] values = {2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
 
         // Create deck
@@ -23,7 +21,7 @@ public class Deck {
         // Create cards in deck
         for(int i = 0; i < 4; i++) {
             for(int j = 0; j < 13; j++) {
-                cards.add(new Card(suits[i], ranks[j], values[j]));
+                cards.add(new Card(suits[i], values[j]));
             }
         }
     }

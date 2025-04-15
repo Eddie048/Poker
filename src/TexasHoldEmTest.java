@@ -1,10 +1,76 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class TexasHoldEmTest {
     public static void main(String[] args) {
 
-        
+
+        for (int numPlayers = 2; numPlayers <= 8; numPlayers++) {
+            System.out.println("\n\n" + numPlayers + " Players:\n");
+            System.out.print("     ");
+            for (int i = 2; i <= 14; i++) {
+                System.out.printf("%-8s", i);
+            }
+            for (int card1val = 2; card1val <= 14; card1val ++) {
+                System.out.printf("\n%2s", card1val);
+                for (int card2val = 2; card2val <= 14; card2val ++) {
+                    List<Card> hand = new ArrayList<>();
+                    hand.add(new Card("Diamonds", card1val));
+                    hand.add(new Card(card1val < card2val ? "Diamonds" : "Hearts", card2val));
+                    System.out.printf("%7.1f%%", getWinPercentage(100000, numPlayers, hand) * 100);
+                }
+            }
+        }
+    }
+
+    public static float getWinPercentage(int numGames, int numPlayers, List<Card> hand) {
+
+        int wins = 0;
+        for (int i = 0; i < numGames; i++) {
+            boolean wonGame = runGame(numPlayers, hand);
+            if (wonGame) wins ++;
+        }
+
+        return (float) wins / numGames;
+    }
+
+    public static boolean runGame(int numPlayers, List<Card> hand) {
+        Deck deck = new Deck();
+        // Remove player's hand from the deck
+        deck.removeAll(hand);
+        deck.shuffle();
+
+
+        // Deal table
+        ArrayList<Card> table = new ArrayList<>();
+        while(table.size() < 5) table.add(deck.deal());
+
+        // Initialize player's hand
+        List<Card> playerHand = new ArrayList<>(hand);
+        playerHand.addAll(table);
+        List<Card> playerBest = Rules.getBestHand(playerHand);
+
+        // Initialize other player's hands
+        ArrayList<List<Card>> otherBestHands = new ArrayList<>();
+        while (otherBestHands.size() < numPlayers - 1) {
+            ArrayList<Card> tempHand = new ArrayList<>(table);
+            tempHand.add(deck.deal());
+            tempHand.add(deck.deal());
+            otherBestHands.add(Rules.getBestHand(tempHand));
+        }
+
+        // Find winner, return true if win or tie, false otherwise
+        for (List<Card> otherHand : otherBestHands) {
+            if (Rules.breakTie(playerBest, otherHand) == 1) {
+                // Lost to this player, return false
+                return false;
+            }
+        }
+
+        // No loss, only win or tie, return true
+        return true;
     }
 
     public static void testGameWinDistribution(int numGames, int numOtherPlayers) {

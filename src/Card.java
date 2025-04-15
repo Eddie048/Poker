@@ -5,11 +5,12 @@ import java.util.Objects;
  */
 public record Card(String suit, String rank, int value) {
 
-//    private String[] ranks = new String[]{""}
+    private static final String[] ranks = {"Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten",
+            "Jack", "Queen", "King", "Ace"};
 
-//    public Card(String suit, int value) {
-//
-//    }
+    public Card(String suit, int value) {
+        this(suit, ranks[value - 2], value);
+    }
 
     public String getSuit() {
         return suit;
