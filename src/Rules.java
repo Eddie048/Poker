@@ -100,7 +100,6 @@ public class Rules {
 
                     // Check for straight
                     if (partialStraight.size() == 5) {
-                        if (scoreCards(partialStraight) < 9) throw new RuntimeException();
 //                        System.out.println("Found straight flush");
                         return partialStraight;
                     }
@@ -113,7 +112,6 @@ public class Rules {
                         if (c.getValue() == 14 && c.getSuit().equals(suit)) {
                             partialStraight.add(c);
 //                            System.out.println("Found straight flush");
-                            if (scoreCards(partialStraight) < 9) throw new RuntimeException();
                             return partialStraight;
                         }
                     }
@@ -144,7 +142,6 @@ public class Rules {
             fullHand.removeAll(result);
             result.add(fullHand.get(fullHand.size() - 1));
 //            System.out.println("Found four of a kind");
-            if (scoreCards(result) != 8) throw new RuntimeException();
             return result;
 
         }
@@ -160,7 +157,6 @@ public class Rules {
             result.addAll(fullHand.subList(doubleIndex, doubleIndex + 2));
 
 //            System.out.println("Found full house");
-            if (scoreCards(result) != 7) throw new RuntimeException();
             return result;
         }
 
@@ -176,7 +172,6 @@ public class Rules {
                     if (result.size() >= 5) break;
                 }
 //                System.out.println("Found flush");
-                if (scoreCards(result) != 6) throw new RuntimeException();
                 return result;
             }
         }
@@ -199,7 +194,6 @@ public class Rules {
             // Check for straight
             if (partialStraight.size() == 5) {
 //                System.out.println("Found straight");
-                if (scoreCards(partialStraight) != 5) throw new RuntimeException();
                 return partialStraight;
             }
         }
@@ -211,7 +205,6 @@ public class Rules {
                 if (c.getValue() == 14) {
                     partialStraight.add(c);
 //                    System.out.println("Found straight");
-                    if (scoreCards(partialStraight) != 5) throw new RuntimeException();
                     return partialStraight;
                 }
             }
@@ -229,7 +222,6 @@ public class Rules {
             // Add the best next two cards
             result.addAll(fullHand.subList(fullHand.size() - 2, fullHand.size()));
 //            System.out.println("Found three of a kind");
-            if (scoreCards(result) != 4) throw new RuntimeException();
             return result;
         }
 //        System.out.println("Checking for two pair");
@@ -250,7 +242,6 @@ public class Rules {
             result.add(fullHand.get(fullHand.size() - 1));
 
 //            System.out.println("Found two pair");
-            if (scoreCards(result) != 3) throw new RuntimeException();
             return result;
         }
 
@@ -266,14 +257,12 @@ public class Rules {
             // Add the best next three cards
             result.addAll(fullHand.subList(fullHand.size() - 3, fullHand.size()));
 //            System.out.println("Found pair");
-            if (scoreCards(result) != 2) throw new RuntimeException();
             return result;
         }
 
         // Return top 5 cards
 //        System.out.println("Found high card");
         List<Card> result = fullHand.subList(fullHand.size() - 5, fullHand.size());
-        if (scoreCards(result) != 1) throw new RuntimeException();
         return result;
     }
 
